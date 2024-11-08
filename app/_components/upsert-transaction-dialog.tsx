@@ -40,7 +40,7 @@ import {
   TransactionType,
 } from "@prisma/client";
 import { useForm } from "react-hook-form";
-import { upsertTransaction } from "../_actions/add-transaction";
+import { upsertTransaction } from "../_actions/upsert-transaction";
 
 interface UpsertTransactionDialogProps {
   isOpen: boolean;
