@@ -7,6 +7,8 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "../_components/ui/scroll-area";
 
+import { canUserAddTransactions } from "../_data/can-user-add-transaction";
+
 const TransactionsPage = async () => {
   const { userId } = await auth();
   if (!userId) {
@@ -15,13 +17,18 @@ const TransactionsPage = async () => {
   const transactions = await db.transaction.findMany({
     where: { userId },
   });
+
+  const userCanAddTransactions = await canUserAddTransactions();
+
   return (
     <>
       <Navbar />
       <div className="space-y-6 overflow-hidden p-6">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Transações</h1>
-          <AddTransactionButton />
+          <AddTransactionButton
+            userCanAddTransactions={userCanAddTransactions}
+          />
         </div>
         <ScrollArea>
           <DataTable columns={transactionColumns} data={transactions} />
