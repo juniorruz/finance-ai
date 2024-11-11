@@ -15,5 +15,6 @@ export const getCurrentMonthTransactions = async () => {
         lt: endOfMonth(new Date()),
       },
     },
+    take: 10,
   });
 };
