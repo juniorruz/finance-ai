@@ -30,7 +30,12 @@ const AiReportButton = ({ month, hasPremiumPlan }: AiReportButtonProps) => {
   const handleGenerateReportClick = async () => {
     try {
       setReportLoading(true);
+
+      const timeout = setTimeout(() => {
+        setReportLoading(false);
+      }, 15000);
       const aiReport = await generateAiReport({ month });
+      clearTimeout(timeout);
       setReport(aiReport);
     } catch (error) {
       console.error(error);
