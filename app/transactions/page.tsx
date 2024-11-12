@@ -16,6 +16,9 @@ const TransactionsPage = async () => {
   }
   const transactions = await db.transaction.findMany({
     where: { userId },
+    orderBy: {
+      date: "desc",
+    },
   });
 
   const userCanAddTransactions = await canUserAddTransactions();
@@ -31,7 +34,10 @@ const TransactionsPage = async () => {
           />
         </div>
         <ScrollArea className="h-full">
-          <DataTable columns={transactionColumns} data={transactions} />
+          <DataTable
+            columns={transactionColumns}
+            data={JSON.parse(JSON.stringify(transactions))}
+          />
         </ScrollArea>
       </div>
     </>
